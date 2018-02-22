@@ -1,0 +1,5 @@
+The Report 
+Booking Code         Passenger name      Flight Code    CheckedIN 
+               ﻿A123              AA BB                  F16               false
+                B123              BB CC                  F18               false
+                C123              CC DD                  F20               false
