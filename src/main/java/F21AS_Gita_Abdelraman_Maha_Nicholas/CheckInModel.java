@@ -4,14 +4,17 @@ package F21AS_Gita_Abdelraman_Maha_Nicholas;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
 import java.util.Scanner;
 
-public class CheckInModel {
+public class CheckInModel  {
 
-    private ArrayList<Passenger> listOfPassengers;
-    private ArrayList<Flight> listOfFlights;
-    private Passenger currentPassenger;
-
+    protected ArrayList<Passenger> listOfPassengers;
+    protected ArrayList<Flight> listOfFlights;
+    protected Passenger currentPassenger;
+ 
 
     /**constructor to create CheckInModel, flight data and passenger data are read here
      * @param bookingFile the name of the passenger data input file
@@ -21,7 +24,8 @@ public class CheckInModel {
     {
         listOfPassengers = new ArrayList<Passenger>();
         listOfFlights = new ArrayList<Flight>();
-
+        
+        
         readFileForFlight(flightFile);
         readFileForPassenger(bookingFile);
     }
@@ -308,5 +312,6 @@ public class CheckInModel {
         return report;
 
     }
+    
 
 }

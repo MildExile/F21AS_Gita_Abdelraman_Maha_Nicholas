@@ -9,6 +9,9 @@ public class Passenger {
     private int bagVolume = 0;
     private float bagWeight = 0.0f;
     private float excessBagCost = 0.0f;
+    private float x;
+    private float z;
+    private float y;
 
     private static final float excessBagLimit = 24;
     private static final float excessBagCostPerUnit =  10;
@@ -74,7 +77,20 @@ public class Passenger {
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
-
+    
+    public void setBagDimension(float x, float y , float z)
+    {
+    	this.x = x;
+    	this.y = y;
+    	this.z = z;
+    }
+    
+    public String getBagDimension()
+    {
+    	String result =""+this.x +"X"+this.y+"X"+this.z;
+    	return result;
+    }
+   
     /**checks if there is excess baggage for the current passenger
      * @return true if passenger has excess baggage
      * @return false if passenger does not have excess baggage
