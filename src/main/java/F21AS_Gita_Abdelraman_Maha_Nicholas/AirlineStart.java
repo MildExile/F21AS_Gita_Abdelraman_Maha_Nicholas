@@ -4,11 +4,11 @@ public class AirlineStart {
 
     public static void main(String[] args) {
 
-        GUI theView = new GUI();
+        SimulationGUI theView = new SimulationGUI();
 
-        CheckInModel theModel = new CheckInModel("src/main/resources/PassengerData.csv", "src/main/resources/FlightData.csv");
-
-        CheckInController theController = new CheckInController(theModel, theView);
+        CheckInModelForPassengerQueue theModel = new CheckInModelForPassengerQueue("src/main/resources/PassengerData.csv", "src/main/resources/FlightData.csv");
+        
+        SimulationController theController = new SimulationController(theModel, theView);
 
         theView.setVisible(true);
 
