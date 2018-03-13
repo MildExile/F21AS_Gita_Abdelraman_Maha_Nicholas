@@ -312,6 +312,9 @@ public class CheckInModel  {
         return report;
 
     }
+     
+    
+
     
 
 }

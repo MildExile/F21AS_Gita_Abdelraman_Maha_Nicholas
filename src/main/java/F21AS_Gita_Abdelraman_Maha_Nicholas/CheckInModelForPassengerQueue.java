@@ -4,9 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-public class CheckInModelForPassengerQueue extends CheckInModel implements Runnable {
+public class CheckInModelForPassengerQueue  implements Runnable {
 
 	   private Queue<Passenger> PassengerQueue;
+	   private CheckInModel model;
 	    Random r = new Random();
 	    int BagMinRandomWeight = 5;
 	    int BagMaxRandomWeight = 50;
@@ -14,22 +15,23 @@ public class CheckInModelForPassengerQueue extends CheckInModel implements Runna
 	    int DimensionMaxRandom = 200;
 
 	
-	public CheckInModelForPassengerQueue(String bookingFile, String flightFile) {
-		super(bookingFile, flightFile);
+	public CheckInModelForPassengerQueue(CheckInModel modelObj) {
+		//super(bookingFile, flightFile);
 		
 		PassengerQueue = new LinkedList<Passenger>();
+		model = modelObj;
 		
-		for (Passenger p : listOfPassengers)
+		for (Passenger p : model.listOfPassengers)
 		{
 			if (p.getCheckedIn() == true)
-			listOfPassengers.remove(p);
+				model.listOfPassengers.remove(p);
 		};
 	}
 	
 	public void run()
 	{
 		
-		for (int i=0 ; i < listOfPassengers.size();i++)
+		for (int i=0 ; i < model.listOfPassengers.size();i++)
 		{
 			AppendIntoQueue();
 		}
@@ -52,36 +54,74 @@ public class CheckInModelForPassengerQueue extends CheckInModel implements Runna
     public synchronized void AppendIntoQueue()
     {
     	int passengerIndex;
-    	passengerIndex = r.nextInt(listOfPassengers.size());
-    	currentPassenger = listOfPassengers.get(passengerIndex);
-    		if(currentPassenger.getCheckedIn() == false )
+    	passengerIndex = r.nextInt(model.listOfPassengers.size());
+    	model.currentPassenger = model.listOfPassengers.get(passengerIndex);
+    		if(model.currentPassenger.getCheckedIn() == false )
     		{
     			float bagWeight =(float) r.nextInt(this.BagMaxRandomWeight - this.BagMinRandomWeight)+ this.BagMinRandomWeight;
-    			currentPassenger.setBagWeight(bagWeight);
+    			model.currentPassenger.setBagWeight(bagWeight);
     			
     			float x = (float) r.nextInt(this.DimensionMaxRandom - this.DimensionMinRandom) + this.DimensionMinRandom;
     			float y = (float) r.nextInt(this.DimensionMaxRandom - this.DimensionMinRandom) + this.DimensionMinRandom;
     			float z = (float) r.nextInt(this.DimensionMaxRandom - this.DimensionMinRandom) + this.DimensionMinRandom;
         	
-    			currentPassenger.setBagDimension(x, y, z);
+    			model.currentPassenger.setBagDimension(x, y, z);
     			
-    			PassengerQueue.add(currentPassenger);
+    			PassengerQueue.add(model.currentPassenger);
     		}// end of if
-    	listOfPassengers.remove(passengerIndex);
+    		model.listOfPassengers.remove(passengerIndex);
     	
     }
     
     public String GenerateQueueDetails()
     {
     	String report =" ";
-    	for(Passenger p: PassengerQueue)
+    	try
     	{
-    		report+= String.format("%15s", p.getFlightCode());
-    		report+= String.format("%15s", p.getFullName());
-    		report+= String.format("%10.2f kg", p.getBagWeight());
-    		report+= String.format("%10s",p.getBagDimension());
+    	model.currentPassenger = PassengerQueue.peek();
     		
+    		report+= String.format("%15s", model.currentPassenger.getFlightCode());
+    		report+= String.format("%15s", model.currentPassenger.getFullName());
+    		report+= String.format("%10.2f kg", model.currentPassenger.getBagWeight());
+    		report+= String.format("%10s",model.currentPassenger.getBagDimension());
     	}
+    	
+    	catch(NullPointerException e)
+    	{
+    		System.err.println(e.getMessage());
+    		System.out.println("The queue is empty");
+    	}
+    	catch(Exception e)
+    	{
+    		System.err.println(e.getMessage());
+    	}
+    		
+    	return report;
+    }
+    
+    
+    public String DisplayPassengerDeskInfo()
+    {
+    	String report="";
+    	
+    	try
+    	{
+    	model.currentPassenger = PassengerQueue.remove();	
+    	report+= String.format("%s is dropping off %n ", model.currentPassenger.getFirstName());
+    	report+= String.format("1 bag of %f kg.%n ", model.currentPassenger.getBagWeight());
+    	report+= String.format("A baggage fee of %n £%f is due. ", model.currentPassenger.getBagWeight());
+    	}
+    	catch(NullPointerException e)
+    	{
+    		System.err.println(e.getMessage());
+    		System.err.println("The queue is empty");
+    	}
+    	
+    	catch(Exception e)
+    	{
+    		System.err.println(e.getMessage());
+    	}
+    	
     	return report;
     }
 	

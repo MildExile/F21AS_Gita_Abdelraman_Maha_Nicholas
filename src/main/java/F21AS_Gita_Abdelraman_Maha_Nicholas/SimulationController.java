@@ -2,9 +2,9 @@ package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
 public class SimulationController {
 	private CheckInModelForPassengerQueue theModel;
-    private SimulationGUI theView;
+    private SimulationGUI2 theView;
 
-    public SimulationController(CheckInModelForPassengerQueue theModel, SimulationGUI theView) {
+    public SimulationController(CheckInModelForPassengerQueue theModel, SimulationGUI2 theView) {
         this.theModel = theModel;
         
         this.theView = theView;
