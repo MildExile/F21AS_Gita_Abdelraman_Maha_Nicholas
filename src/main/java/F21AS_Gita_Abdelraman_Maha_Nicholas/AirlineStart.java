@@ -4,15 +4,20 @@ public class AirlineStart {
 
     public static void main(String[] args) {
 
-        SimulationGUI2 theView = new SimulationGUI2();
+
         
-        CheckInModel theCheckedModel= new CheckInModel("src/main/resources/PassengerData.csv", "src/main/resources/FlightData.csv");
+        CheckInModel theCheckedModel= new CheckInModel();
 
         CheckInModelForPassengerQueue theModel = new CheckInModelForPassengerQueue(theCheckedModel);
-        
-        SimulationController theController = new SimulationController(theModel, theView);
 
-       
+        SimulationGUI theView = new SimulationGUI(theModel);
+
+        SimulationController theController = new SimulationController(theModel,theView);
+
+       /*GUI theView = new GUI();
+       CheckInModel theModel = new CheckInModel("src/main/resources/PassengerData.csv", "src/main/resources/FlightData.csv");
+       CheckInController theController = new CheckInController(theModel,theView);
+       theView.setVisible(true);*/
     }
 
 }
