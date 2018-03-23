@@ -58,9 +58,11 @@ public class SimulationGUI implements Observer {
 		initialize();
 		this.cimfpq = cimfpq;
 		cimfpq.getPsl().registerObserver(this);
-		/*for (int i = 0; i < cimfpq.getCids().size(); i++) {
+
+		for (int i = 0; i < cimfpq.getCids().size(); i++) {
 			cimfpq.getCids().get(i).registerObserver(this);
-		}*/
+			System.out.println(cimfpq.getCids().get(i).getName());
+		}
 		//cimfpq.getCids().get(0).registerObserver(this);
 	}
 
@@ -175,16 +177,16 @@ public class SimulationGUI implements Observer {
 
 	}
 
-	public synchronized void updateQueuePanel() {
+	public void updateQueuePanel() {
 		String report = cimfpq.getPsl().GenerateQueueDetails();
 		list.add(report);
 
 	}
 
-	public synchronized void updateCheckInDeskPanel() {
-		String report = cimfpq.getCids().get(0).DisplayPassengerDeskInfo();
-		textField.setText(report);
-		/*for (int i = 0; i < cimfpq.getCids().size(); i++) {
+	public  void updateCheckInDeskPanel() {
+		//String report = cimfpq.getCids().get(0).DisplayPassengerDeskInfo();
+		//textField.setText(report);
+		for (int i = 0; i < cimfpq.getCids().size(); i++) {
 			System.out.println(cimfpq.getCids().size());
 			String report = cimfpq.getCids().get(i).DisplayPassengerDeskInfo();
 			switch (i) {
@@ -192,7 +194,7 @@ public class SimulationGUI implements Observer {
 				case 1 : textField_1.setText(report);
 			}
 
-		}*/
+		}
 	}
 
 	public void updateFlightPanel() {
