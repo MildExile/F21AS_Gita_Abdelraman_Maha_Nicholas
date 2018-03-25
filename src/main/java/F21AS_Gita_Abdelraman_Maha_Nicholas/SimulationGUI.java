@@ -1,20 +1,16 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
-import java.awt.EventQueue;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.List;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 
-public class SimulationGUI implements Observer {
+public class SimulationGUI extends JFrame /*implements Observer*/ {
 
-	private CheckInModelForPassengerQueue cimfpq;
+	private CheckInModel theModel;
 
-	private JFrame frame;
+	/*private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -33,7 +29,24 @@ public class SimulationGUI implements Observer {
 	private JPanel panel_3;
 	private List list;
 	private List list_1;
-	private List list_2;
+	private List list_2;*/
+	private JPanel passengerQueuePanel;
+	private JPanel checkInDeskPanel;
+	private JPanel flightPanel;
+	private JPanel interactionPanel;
+	private JButton startSimulation;
+
+	private JButton addCheckInDesk;
+	private JButton removeCheckInDesk;
+	private JButton addPassengerQueue;
+	private JButton removePassengerQueue;
+	private JButton slowCheckIn;
+	private JButton fastCheckIn;
+	private JButton slowPassengerArrival;
+	private JButton fastPassengerArrival;
+	private JTextField checkInDeskSpeed;
+	private JTextField passArrivalSpeed;
+	private JTextField flightSpeed;
 
 	/**
 	 * Launch the application.
@@ -54,22 +67,276 @@ public class SimulationGUI implements Observer {
 	/**
 	 * Create the application.
 	 */
-	public SimulationGUI(CheckInModelForPassengerQueue cimfpq) {
-		initialize();
-		this.cimfpq = cimfpq;
-		cimfpq.getPsl().registerObserver(this);
+	public SimulationGUI(CheckInModel theModel) {
 
-		for (int i = 0; i < cimfpq.getCids().size(); i++) {
-			cimfpq.getCids().get(i).registerObserver(this);
-			System.out.println(cimfpq.getCids().get(i).getName());
-		}
-		//cimfpq.getCids().get(0).registerObserver(this);
+		this.theModel = theModel;
+		/*theModel.getCid().registerObserver(this);*/
+
+		initialise();
+		//this.theModel.getCids().
+		//theModel.getPsl().registerObserver(this);
+
+		/*for (int i = 0; i < theModel.getCids().size(); i++) {
+			theModel.getCids().get(i).registerObserver(this);
+			System.out.println(theModel.getCids().get(i).getName());
+		}*/
+
+		//theModel.getCids().get(0).registerObserver(this);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialise() {
+		//set up window title
+		setTitle("Airline Check In Simulation");
+		//ensure program ends when window closes
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(800,600));
+
+
+		add(createStartPanel(),BorderLayout.NORTH);
+		add(createSimulationPanel(),BorderLayout.CENTER);
+		setVisible(true);
+	}
+
+	private JPanel createStartPanel() {
+		startSimulation = new JButton("Start Simulation");
+		JPanel northPanel = new JPanel();
+		northPanel.add(startSimulation);
+		return northPanel;
+	}
+
+	private JPanel createSimulationPanel() {
+
+
+		passengerQueuePanel = new JPanel();
+		passengerQueuePanel.setLayout(new GridLayout(0,1));
+		JScrollPane pScroll = new JScrollPane(passengerQueuePanel);
+		//pScroll.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+
+		passArrivalSpeed = new JTextField();
+		passArrivalSpeed.setEditable(false);
+		//passArrivalSpeed.setText(String.valueOf("Passenger arrival speed now : " + theModel.getPA().getPassArriveTimer()));
+		JPanel passArea = new JPanel();
+		passArea.add(passArrivalSpeed, BorderLayout.NORTH);
+		passArea.add(pScroll, BorderLayout.CENTER);
+		passArea.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+
+
+		checkInDeskPanel = new JPanel();
+		checkInDeskPanel.setLayout(new GridLayout(0,2));
+		JScrollPane cScroll = new JScrollPane(checkInDeskPanel);
+		//cScroll.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+
+		checkInDeskSpeed = new JTextField();
+		checkInDeskSpeed.setEditable(false);
+		//checkInDeskSpeed.setText("Check in desk speed now : " +String.valueOf(theModel.getCid().getCidTimer()));
+		JPanel cidArea = new JPanel();
+		cidArea.add(checkInDeskSpeed, BorderLayout.NORTH);
+		cidArea.add(cScroll, BorderLayout.CENTER);
+		cidArea.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+
+		flightPanel = new JPanel();
+		flightPanel.setLayout(new GridLayout(0,3));
+		JScrollPane fScroll = new JScrollPane(flightPanel);
+		//fScroll.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+
+		flightSpeed = new JTextField();
+		flightSpeed.setEditable(false);
+		JPanel flightArea = new JPanel();
+		flightArea.add(flightSpeed, BorderLayout.NORTH);
+		flightArea.add(fScroll, BorderLayout.CENTER);
+		flightArea.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+
+		interactionPanel = new JPanel();
+		interactionPanel.setLayout(new GridLayout(0,2));
+
+		addCheckInDesk = new JButton("Open a Check In Desk");
+		removeCheckInDesk = new JButton("Close a Check In Desk");
+		addPassengerQueue = new JButton("Open a Passenger Queue");
+		removePassengerQueue = new JButton("Close a Passenger Queue");
+		slowCheckIn = new JButton("Slow down Check In");
+		fastCheckIn = new JButton("Speed up Check In");
+		slowPassengerArrival = new JButton("Slow down Arrivals");
+		fastPassengerArrival = new JButton("Speed up Arrivals");
+
+		addCheckInDesk.setEnabled(false);
+		removeCheckInDesk.setEnabled(false);
+		addPassengerQueue.setEnabled(false);
+		removePassengerQueue.setEnabled(false);
+		slowCheckIn.setEnabled(false);
+		fastCheckIn.setEnabled(false);
+		slowPassengerArrival.setEnabled(false);
+		fastPassengerArrival.setEnabled(false);
+
+		addCheckInDesk.setPreferredSize(new Dimension(150,40));
+		removeCheckInDesk.setPreferredSize(new Dimension(150,40));
+		addPassengerQueue.setPreferredSize(new Dimension(150,40));
+		removePassengerQueue.setPreferredSize(new Dimension(150,40));
+		slowCheckIn.setPreferredSize(new Dimension(150,40));
+		fastCheckIn.setPreferredSize(new Dimension(150,40));
+		slowPassengerArrival.setPreferredSize(new Dimension(150,40));
+		fastPassengerArrival.setPreferredSize(new Dimension(150,40));
+
+		interactionPanel.add(addCheckInDesk);
+		interactionPanel.add(removeCheckInDesk);
+		interactionPanel.add(addPassengerQueue);
+		interactionPanel.add(removePassengerQueue);
+		interactionPanel.add(slowCheckIn);
+		interactionPanel.add(fastCheckIn);
+		interactionPanel.add(slowPassengerArrival);
+		interactionPanel.add(fastPassengerArrival);
+
+		JScrollPane iScroll = new JScrollPane(interactionPanel);
+		iScroll.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+
+		JPanel simPanel = new JPanel(new GridLayout(2,2));
+		simPanel.add(passArea);
+		simPanel.add(cidArea);
+		simPanel.add(flightArea);
+		simPanel.add(iScroll);
+
+		return simPanel;
+	}
+
+	public void startSimulationListener(ActionListener al) {
+		startSimulation.addActionListener(al);
+	}
+
+	public void addPassengerQueueListener(ActionListener al) {
+		addPassengerQueue.addActionListener(al);
+	}
+
+	public void removePassengerQueueListener(ActionListener al) {
+		removePassengerQueue.addActionListener(al);
+	}
+
+	public void addCheckInDeskListener(ActionListener al) {
+		addCheckInDesk.addActionListener(al);
+	}
+
+	public void removeCheckInDeskListener(ActionListener al) {
+		removeCheckInDesk.addActionListener(al);
+	}
+
+	public void fastCheckInListener(ActionListener al) {
+		fastCheckIn.addActionListener(al);
+	}
+
+	public void slowCheckInListener(ActionListener al) {
+		slowCheckIn.addActionListener(al);
+	}
+
+	public void fastPassengerArrivalListener(ActionListener al) {
+		fastPassengerArrival.addActionListener(al);
+	}
+
+	public void slowPassengerArrivalListener(ActionListener al) {
+		slowPassengerArrival.addActionListener(al);
+	}
+
+
+	public void disableStartSimulationButton() {
+		startSimulation.setEnabled(false);
+	}
+
+	public void enableAddCheckInDeskButton() {
+		addCheckInDesk.setEnabled(true);
+
+	}
+
+	public void disableAddCheckInDeskButton() {
+		addCheckInDesk.setEnabled(false);
+	}
+	public void enableRemoveCheckInDeskButton() {
+		removeCheckInDesk.setEnabled(true);
+
+	}
+	public void disableRemoveCheckInDeskButton() {
+		removeCheckInDesk.setEnabled(false);
+	}
+
+
+	public void enableAddPassengerQueueButton() {
+		addPassengerQueue.setEnabled(true);
+	}
+
+	public void disableAddPassengerQueueButton() {
+		addPassengerQueue.setEnabled(false);
+	}
+
+	public void enableRemovePassengerQueueButton() {
+		removePassengerQueue.setEnabled(true);
+	}
+
+	public void disableRemovePassengerQueueButton() {
+		removePassengerQueue.setEnabled(false);
+	}
+
+	public void enableSlowCheckInButton() {
+		slowCheckIn.setEnabled(true);
+	}
+
+	public void disableSlowCheckInButton() {
+		slowCheckIn.setEnabled(false);
+	}
+
+	public void enableFastCheckInButton() {
+		fastCheckIn.setEnabled(true);
+	}
+
+	public void disableFastCheckInButton() {
+		fastCheckIn.setEnabled(false);
+	}
+
+	public void enableSlowPassengerArrivalButton() {
+		slowPassengerArrival.setEnabled(true);
+
+	}
+	public void disableSlowPassengerArrivalButton() {
+		slowPassengerArrival.setEnabled(false);
+	}
+
+	public void enableFastPassengerArrivalButton() {
+		fastPassengerArrival.setEnabled(true);
+	}
+
+	public void disableFastPassengerArrivalButton() {
+		fastPassengerArrival.setEnabled(false);
+	}
+
+	public void addPassengerQueuePanel(JPanel panel) {
+		passengerQueuePanel.add(panel);
+	}
+
+	public void addCheckInDeskPanel(JPanel panel) {
+		checkInDeskPanel.add(panel);
+	}
+
+	public void addFlightPanel(JPanel panel) {
+		flightPanel.add(panel);
+	}
+
+	public void addInteractionPanel(JPanel panel) {
+		interactionPanel.add(panel);
+	}
+
+	public void setCheckInSpeed(int checkInSpeed) {
+		this.checkInDeskSpeed.setText("Check in desk speed now: " + String.valueOf(checkInSpeed));
+	}
+
+	public void setPassArrivalSpeed(int passArrivalSpeed) {
+		this.passArrivalSpeed.setText("Passenger arrival speed now: " + String.valueOf(passArrivalSpeed));
+	}
+
+	/*public void update() {
+		CheckInDeskGUI cidGUI = new CheckInDeskGUI(theModel.getCid());
+		checkInDeskPanel.add(cidGUI);
+		cidGUI.setCurrentlyDoingText();
+	}*/
+
+	/*private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(0, 0, 1800, 1200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -168,37 +435,37 @@ public class SimulationGUI implements Observer {
 		panel_3.add(button_2);
 
 		frame.setVisible(true);
-	}
+	}*/
 
-	public synchronized void update() {
-		updateQueuePanel();
-		updateCheckInDeskPanel();
+	/*public synchronized void update() {
+		//updateQueuePanel();
+		//updateCheckInDeskPanel();
 		//updateFlightPanel();
 
 	}
 
 	public void updateQueuePanel() {
-		String report = cimfpq.getPsl().GenerateQueueDetails();
+		String report = theModel.getPsl().GenerateQueueDetails();
 		list.add(report);
 
 	}
 
 	public  void updateCheckInDeskPanel() {
-		//String report = cimfpq.getCids().get(0).DisplayPassengerDeskInfo();
-		//textField.setText(report);
-		for (int i = 0; i < cimfpq.getCids().size(); i++) {
-			System.out.println(cimfpq.getCids().size());
-			String report = cimfpq.getCids().get(i).DisplayPassengerDeskInfo();
+		String report = theModel.getCids().get(0).DisplayPassengerDeskInfo();
+		textField.setText(report);
+		*//*for (int i = 0; i < theModel.getCids().size(); i++) {
+			System.out.println(theModel.getCids().size());
+			String report = theModel.getCids().get(i).DisplayPassengerDeskInfo();
 			switch (i) {
 				case 0 : textField.setText(report);
 				case 1 : textField_1.setText(report);
 			}
 
-		}
+		}*//*
 	}
 
 	public void updateFlightPanel() {
 
-	}
+	}*/
 }
 

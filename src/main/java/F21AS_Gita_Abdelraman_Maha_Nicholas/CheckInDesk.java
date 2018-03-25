@@ -2,41 +2,51 @@ package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
-public class CheckInDesk extends Thread implements Subject{
-    private PassengerQueue so;
+public class CheckInDesk extends Thread implements CSubject {
+    private NextPassenger np;
+    private Passenger p;
+    private int cidTimer = 10000;
 
-    public CheckInDesk(PassengerQueue so)
+    public CheckInDesk(NextPassenger np)
     {
-        this.so = so;
+        this.np = np;
+    }
+
+    public NextPassenger getNextPassenger() {
+        return np;
     }
 
     public void run() {
 
-        while (!so.getDone()) {
+        while (!np.getDone()) {
             try {
-
-                Thread.sleep(1000);
+                System.out.println("check in desk sleeping");
+                Thread.sleep(cidTimer);
             } catch (InterruptedException e) {
                 System.out.println(e);
             }
-            System.out.println(DisplayPassengerDeskInfo());
+            p = np.get();
 
-            notifyObservers();
+            notifyCObservers();
+            //System.out.println("check in desk working");
+            //cm = np.get();
+            //System.out.println(DisplayPassengerDeskInfo());
         }
         System.out.println("CheckInDesk Thread Finished");
     }
 
-    public synchronized String DisplayPassengerDeskInfo()
+    public String DisplayPassengerDeskInfo()
     {
         String report="";
+
         try
         {
-            Passenger p = so.get();
-            report+= String.format("%s is dropping off %n ", p.getFirstName());
-            report+= String.format("1 bag of %f kg.%n ", p.getBagWeight());
-            report+= String.format("A baggage fee of %n £%f is due. ", p.getBagWeight());
+            report+= String.format("%s is dropping off ", p.getFullName());
+            report+= String.format("1 bag of %.2f kg.\n", p.getBagWeight());
+            if (p.isThereExcessBag()) {
+                report+= String.format("A baggage fee of £%.2f is due.", p.getBagWeight());
+            }
         }
         catch(NullPointerException e)
         {
@@ -49,22 +59,29 @@ public class CheckInDesk extends Thread implements Subject{
             System.err.println(e.getMessage());
 
         }
-
         return report;
     }
 
-    private List<Observer> registeredObservers = new LinkedList<Observer>();
-
-    public synchronized void registerObserver(Observer obs) {
-        registeredObservers.add(obs);
+    public void adjustCheckInDeskTimer(int adjustedTime) {
+        cidTimer = cidTimer + adjustedTime;
     }
 
-    public synchronized void removeObserver(Observer obs) {
-        registeredObservers.remove(obs);
+    public int getCidTimer() {
+        return cidTimer;
     }
 
-    public synchronized void notifyObservers() {
-        for (Observer obs : registeredObservers)
+    private List<CObserver> registeredCObservers = new LinkedList<CObserver>();
+
+    public void registerCObserver(CObserver obs) {
+        registeredCObservers.add(obs);
+    }
+
+    public void removeCObserver(CObserver obs) {
+        registeredCObservers.remove(obs);
+    }
+
+    public void notifyCObservers() {
+        for (CObserver obs : registeredCObservers)
             obs.update();
     }
 }

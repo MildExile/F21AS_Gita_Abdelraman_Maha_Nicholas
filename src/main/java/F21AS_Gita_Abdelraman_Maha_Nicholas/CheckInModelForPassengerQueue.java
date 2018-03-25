@@ -3,14 +3,15 @@ package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
 import java.util.*;
 
-public class CheckInModelForPassengerQueue extends Thread {
+public class CheckInModelForPassengerQueue extends Thread /*implements Subject*/ {
 
-	private PassengerQueue so;
-
-	private PassengerSimulationList psl;
-	private ArrayList<CheckInDesk> cids = new ArrayList<CheckInDesk>();
+	private NextPassenger np;
+    private PassengerArrival pa;
+	//private PassengerQueue psl;
+	//private ArrayList<CheckInDesk> cids = new ArrayList<CheckInDesk>();
 	private CheckInDesk cid;
-	private Thread[] cidThreads;
+	private CheckInDesk cid2;
+	//private Thread[] cidThreads;
 	private CheckInModel model;
 
 
@@ -20,15 +21,17 @@ public class CheckInModelForPassengerQueue extends Thread {
 	public CheckInModelForPassengerQueue(CheckInModel modelObj) {
 		//super(bookingFile, flightFile);
 
+
 		this.model = modelObj;
-		this.so = new PassengerQueue();
-		this.psl = new PassengerSimulationList(so,model);
 
-		for (int i = 0; i < 2; i++) {
-			cids.add(new CheckInDesk(so));
-		}
+		//this.np = new NextPassenger();
+        //
 
-		//this.cid = new CheckInDesk(so);
+
+		/*for (int i = 0; i < 2; i++) {
+			cids.add(new CheckInDesk(np));
+		}*/
+
 
 		for (Passenger p : model.listOfPassengers)
 		{
@@ -37,42 +40,58 @@ public class CheckInModelForPassengerQueue extends Thread {
 			}
 		}
 
-		runProducer();
+		//passengerArrives();
+		//checkInDeskOpen();
+		//runProducer();
 
-		runConsumer();
+		//runConsumer();
 
 
 	}
 
-	public void runProducer()
-	{
-		Thread prodThread = new Thread(psl);
+    public void passengerArrives() {
+	    Thread arrive = new Thread(pa);
+	    arrive.start();
+    }
 
-		prodThread.start();
+    public void checkInDeskOpen() {
+
+		this.cid = new CheckInDesk(np);
+
+		Thread cidThread = new Thread(cid);
+		cidThread.start();
+
+		this.cid2 = new CheckInDesk(np);
+		Thread cid2Thread = new Thread(cid);
+		cid2Thread.start();
 	}
 
-	public void runConsumer()
-	{
-		//Thread cidThread = new Thread(cid);
-
-		//cidThread.start();
-
-		cidThreads = new Thread[cids.size()];
-
-		for (int i = 0; i < cids.size(); i++) {
-			cidThreads[i] = new Thread(cids.get(i));
-
-			cidThreads[i].start();
-		}
+	public CheckInDesk getCid() {
+		return cid;
 	}
 
-	public synchronized PassengerSimulationList getPsl() {
+	public PassengerQueue getPQ() {
+
+		return pa.getPQ();
+	}
+
+	public PassengerArrival getPA() {
+		return pa;
+	}
+
+	public NextPassenger getNP() {
+		return np;
+	}
+
+	/*public synchronized PassengerQueue getPsl() {
 		return psl;
 	}
 
 	public synchronized ArrayList<CheckInDesk> getCids() {
 		return cids;
-	}
+	}*/
+
+
 
 	/*public void run()
 	{

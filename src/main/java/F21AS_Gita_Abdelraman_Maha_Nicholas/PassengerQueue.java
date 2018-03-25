@@ -1,70 +1,114 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-public class PassengerQueue {
+public class PassengerQueue extends Thread implements QSubject{
 
+    private NextPassenger np;
+    private ArrayList<Passenger> pq = new ArrayList<Passenger>();
     private boolean firstRun;
-    private boolean done;
-    private Queue<Passenger> pq;
+    private Passenger p;
+    private String qm;
 
-
-    public PassengerQueue()
+    public PassengerQueue(NextPassenger np)
     {
-        firstRun = true;
-        done = false;
-        pq = new LinkedList<Passenger>();
-
+        this.np = np;
+        this.firstRun = true;
     }
 
-    //get single passenger from queue and return string
-    public synchronized Passenger get()
-    {
-        while (isQueueEmpty()) {
+    public void addToQueue(Passenger p) {
+        pq.add(p);
+    }
+
+    public int getQueueSize() {
+        return pq.size()-1;
+    }
+    public NextPassenger getNextPassenger() {
+        return np;
+    }
+    public String getQM() {
+        return qm;
+    }
+    //run to create a producer to enter values into the shared object passenger class
+    public void run() {
+        while (pq.isEmpty()) {
             try {
-                wait();
-            } catch (InterruptedException e) {
+                System.out.println("passenger queue sleeping");
+                Thread.sleep(1000);
+            } catch (InterruptedException e)
+            {
                 System.out.println(e);
             }
         }
-        //notifyAll();
-        return pq.remove();
-    }
 
-    //put the passenger into the queue to be used
-    public synchronized void put(Passenger p) {
-        this.pq.add(p);
-        notifyAll();
-
-    }
-
-    public synchronized boolean isQueueEmpty()
-    {
-        if (firstRun) {
-            firstRun = false;
-        }
-        if (pq.peek() == null)
-        {
-            if (firstRun) {
-                firstRun = false;
-                return false;
+        //way to terminate the consumer thread
+        while (!pq.isEmpty()) {
+            try
+            {
+                System.out.println("passenger queue working");
+                Thread.sleep(1000);
             }
-            return true;
-        } else {
-            return false;
+            catch (InterruptedException e)
+            {
+                System.err.println(e.getMessage());
+            }
+            p = pq.get(0);
+
+            np.put(p);
+
+            notifyQObservers();
+
+            //np.put(p);
+            //qm = np.put(pq.remove());
+
+            //System.out.println(generateQueueDetails());
+
         }
+
+        System.out.println("End of Producer Thread");
+        np.setDone();
     }
 
-    public void setDone()
-    {
-        done = true;
+    //format the passenger details into a string to be printed
+    public String generateQueueDetails() {
+
+
+        String report = "";
+        for (int i = 0; i < pq.size(); i++) {
+
+            try {
+                report += String.format("%10s", pq.get(i).getFlightCode());
+                report += String.format("%20s", pq.get(i).getFullName());
+                report += String.format("%20.2f kg", pq.get(i).getBagWeight());
+                report += String.format("%20s\n", pq.get(i).getBagDimension());
+            } catch (NullPointerException e) {
+                System.err.println(e.getMessage());
+                System.out.println("The queue is empty");
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        pq.remove(0);
+
+        return report;
+    }
+    /**
+     * A method which traverse the PassengerList search for passengers who didn't check in
+     * And append them into the queue
+     */
+
+    private List<QObserver> registeredQObservers = new LinkedList<QObserver>();
+
+    public void registerQObserver(QObserver obs) {
+        registeredQObservers.add(obs);
     }
 
-    public boolean getDone()
-    {
-        return done;
+    public void removeQObserver(QObserver obs) {
+        registeredQObservers.remove(obs);
     }
 
-
+    public void notifyQObservers() {
+        for (QObserver obs : registeredQObservers)
+            obs.update();
+    }
 }
