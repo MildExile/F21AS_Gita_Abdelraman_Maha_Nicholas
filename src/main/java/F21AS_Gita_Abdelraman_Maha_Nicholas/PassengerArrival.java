@@ -9,7 +9,7 @@ public class PassengerArrival implements Runnable {
     private PassengerQueue pq;
     private NextPassenger np;
     private Passenger p;
-    private int passArriveTimer = 1000;
+    private int passArriveTimer = 500;
 
     int BagMinRandomWeight = 5;
     int BagMaxRandomWeight = 50;

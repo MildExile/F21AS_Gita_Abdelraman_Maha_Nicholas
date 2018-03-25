@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class NextPassenger implements Subject, QSubject, CSubject{
+public class NextPassenger implements QSubject, CSubject{
 
     private boolean empty;
     private boolean done;
@@ -91,22 +91,6 @@ public class NextPassenger implements Subject, QSubject, CSubject{
     public synchronized void notifyCObservers() {
         for (CObserver obs : registeredCObservers)
             obs.update();
-    }
-
-    private List<Observer> registeredObservers = new LinkedList<Observer>();
-
-    public synchronized void registerObserver(Observer obs) {
-        registeredObservers.add(obs);
-    }
-
-    public synchronized void removeObserver(Observer obs) {
-        registeredObservers.remove(obs);
-    }
-
-    public synchronized void notifyObservers() {
-        for (Observer obs : registeredObservers) {
-            obs.update();
-        }
     }
 
 }

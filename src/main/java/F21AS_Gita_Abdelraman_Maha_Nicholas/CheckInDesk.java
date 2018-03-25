@@ -6,7 +6,7 @@ import java.util.List;
 public class CheckInDesk extends Thread implements CSubject {
     private NextPassenger np;
     private Passenger p;
-    private int cidTimer = 10000;
+    private int cidTimer = 1000;
 
     public CheckInDesk(NextPassenger np)
     {

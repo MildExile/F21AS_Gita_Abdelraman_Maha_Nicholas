@@ -70,10 +70,10 @@ public class SimulationController {
             Thread arrive = new Thread(pa);
             arrive.start();
 
-            NextPassenger np2 = new NextPassenger();
+            //NextPassenger np2 = new NextPassenger();
 
-            pa2 = new PassengerArrival(np2, theModel);
-            PassengerQueueGUI pqGUI2 = new PassengerQueueGUI(theView, pa2.getPQ());
+            //pa2 = new PassengerArrival(np2, theModel);
+            //PassengerQueueGUI pqGUI2 = new PassengerQueueGUI(theView, pa2.getPQ());
 
             cid = new CheckInDesk(np);
             CheckInDeskGUI cidGUI = new CheckInDeskGUI(theView, cid);
@@ -89,12 +89,12 @@ public class SimulationController {
             Thread cid2Thread = new Thread(cid2);
             cid2Thread.start();
 
-            cid3 = new CheckInDesk(np2);
+            cid3 = new CheckInDesk(np);
             CheckInDeskGUI cidGUI3 = new CheckInDeskGUI(theView, cid3);
             Thread cid3Thread = new Thread(cid3);
             cid3Thread.start();
 
-            cid4 = new CheckInDesk(np2);
+            cid4 = new CheckInDesk(np);
             CheckInDeskGUI cidGUI4 = new CheckInDeskGUI(theView, cid4);
             Thread cid4Thread = new Thread(cid4);
             cid4Thread.start();
