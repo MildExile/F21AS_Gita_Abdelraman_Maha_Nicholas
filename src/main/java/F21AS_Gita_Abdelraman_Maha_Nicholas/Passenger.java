@@ -1,5 +1,10 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
+/**
+ * A class that creates and process Passenger objects and assign information to it 
+ * @author Abood
+ *
+ */
 public class Passenger {
     private String bookingRefCode; //example "AA12345678"
     private String flightCode;
@@ -24,7 +29,10 @@ public class Passenger {
         this.checkedIn = checkedIn;
     }
 
-
+    /**
+     * a method to set the BagVolume 
+     * @param bagVolume
+     */
     public void setBagVolume(int bagVolume) {
         this.bagVolume = bagVolume;
     }
@@ -100,10 +108,13 @@ public class Passenger {
             return true;
         return false;
     }
-
+    
+    /**
+     * a method which calculate weather or not  the passenger have fees to pay 
+     */
     public void excessBagCalculation() {
         if (isThereExcessBag()) {
-            this.excessBagCost = (this.getBagWeight() - excessBagLimit) * excessBagCostPerUnit;
+            this.excessBagCost = Math.abs((this.getBagWeight() - excessBagLimit)) * excessBagCostPerUnit;
         }
     }
 

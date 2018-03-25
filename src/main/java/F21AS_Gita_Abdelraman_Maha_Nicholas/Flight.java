@@ -1,5 +1,11 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
+/**
+ * Flight class which creates Flight Objects, process them and assign information
+ * it has methods to display and process the required functionality for the Flight 
+ * @author abood
+ *
+ */
 public class Flight {
 
     private String destinationAirport;

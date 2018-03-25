@@ -24,28 +24,15 @@ public class CheckInModelForPassengerQueue extends Thread /*implements Subject*/
 
 		this.model = modelObj;
 
-		//this.np = new NextPassenger();
-        //
 
-
-		/*for (int i = 0; i < 2; i++) {
-			cids.add(new CheckInDesk(np));
-		}*/
-
-
+		//get rid of all CheckedIn Passengers 
+		// as results the queue will have only unCheckedIn passengers 
 		for (Passenger p : model.listOfPassengers)
 		{
 			if (p.getCheckedIn() == true) {
 				model.listOfPassengers.remove(p);
 			}
 		}
-
-		//passengerArrives();
-		//checkInDeskOpen();
-		//runProducer();
-
-		//runConsumer();
-
 
 	}
 
@@ -74,6 +61,7 @@ public class CheckInModelForPassengerQueue extends Thread /*implements Subject*/
 
 		return pa.getPQ();
 	}
+
 
 	public PassengerArrival getPA() {
 		return pa;

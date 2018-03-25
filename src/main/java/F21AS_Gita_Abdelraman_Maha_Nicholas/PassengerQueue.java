@@ -1,35 +1,50 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
 import java.util.*;
-
+/**
+ * This class has the actual Queue which uses a linkedList to store each passenger as they arrive
+ * when passenger are at the top of the queue, 
+ * It passes that passenger to NextPassenger which is our shared object in our producer consumer design pattern
+ * This class implements threads  to allow time to be given to the shared object 
+ * This class is our producer 
+ * @authors 
+ */
 public class PassengerQueue extends Thread implements QSubject{
 
     private NextPassenger np;
     private LinkedList<Passenger> pq = new LinkedList<Passenger>();
-    //private boolean firstRun;
+  
     private Passenger p;
-    //private String qm;
+
 
     public PassengerQueue(NextPassenger np)
     {
         this.np = np;
         //this.firstRun = true;
     }
-
+    /**
+     * A method which is used to append a passenger into a queue 
+     * @param p
+     */
     public void addToQueue(Passenger p) {
         pq.add(p);
     }
-
+    /**
+     * a method which return the size of the queue 
+     * And it decrement it by 1 because a passenger is processed by CheckInDesk we remove it 
+     * @return
+     */
     public int getQueueSize() {
         return pq.size()-1;
     }
     public NextPassenger getNextPassenger() {
         return np;
     }
-/*    public String getQM() {
-        return qm;
-    }*/
-    //run to create a producer to enter values into the shared object passenger class
+
+    
+    /**
+     * a run method to create a producer to enter values into the shared object passenger class
+     */
     public void run() {
         while (pq.isEmpty()) {
             try {
@@ -52,6 +67,7 @@ public class PassengerQueue extends Thread implements QSubject{
             {
                 System.err.println(e.getMessage());
             }
+            
             //get the top entry of the LinkedList
             //and assign it to a passenger
             p = pq.get(0);
@@ -61,18 +77,17 @@ public class PassengerQueue extends Thread implements QSubject{
 
             notifyQObservers();
 
-            //np.put(p);
-            //qm = np.put(pq.remove());
-
-            //System.out.println(generateQueueDetails());
-
         }
 
         System.out.println("End of Producer Thread");
         np.setDone();
     }
 
-    //format the passenger details into a string to be printed
+    
+    /**
+     * a method which is used to format the passenger details into a string to be printed
+     * @return a string to be displayed on the CheckInDesk (GUI)
+     */
     public String generateQueueDetails() {
 
         // to remove the top entry of the queue 
@@ -97,10 +112,6 @@ public class PassengerQueue extends Thread implements QSubject{
 
         return report;
     }
-    /**
-     * A method which traverse the PassengerList search for passengers who didn't check in
-     * And append them into the queue
-     */
 
     private List<QObserver> registeredQObservers = new LinkedList<QObserver>();
 

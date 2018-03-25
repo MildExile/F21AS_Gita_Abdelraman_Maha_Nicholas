@@ -24,6 +24,10 @@ public class NextPassenger {
 
    /**
     * a method that return the passenger object 
+    * synchronized is used to When one thread is getting a Passenger object to be processed by CheckInDesk 
+    * all other threads that invoke synchronized methods for the same object will block (suspend execution)
+    * until the first thread is done with the object
+    * In order to emphasis that one Passenger is processed at a time   
     * @return p which indicates the next passenger to be processed by CheckIn Desk
     */
     public synchronized Passenger get()
@@ -38,12 +42,21 @@ public class NextPassenger {
             }
         }
         empty = true;
+        try
+        {
         notifyAll();
+        }
+        catch(IllegalMonitorStateException e)
+        {
+        	System.err.println(e.getMessage());
+        }
         return p;
     }
 
    /**
-    * Method which puts the passenger into the sharedObject 
+    * Method which puts the passenger into the sharedObject  
+    * Also its synchronized in order to emphasis that one Passenger is processed at a time
+    * and to prevent threads to overlap 
     * @param p to indicate which passenger to be inserted next 
     */
     public synchronized void put(Passenger p) {
@@ -56,8 +69,14 @@ public class NextPassenger {
         }
         empty = false;
         this.p = p;
+        try
+        {
         notifyAll();
-
+        }
+        catch(IllegalMonitorStateException e)
+        {
+        	System.err.println(e.getMessage());
+        }
 
     }
 

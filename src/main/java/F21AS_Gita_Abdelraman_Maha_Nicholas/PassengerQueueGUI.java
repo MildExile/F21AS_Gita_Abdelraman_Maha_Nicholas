@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Class to process one passenger from the front of the passenger queue 
+ * pass it to the NextPassenger which is the shared object to be passed next to the CheckInDesk in order to process the passenegr
+ * @authors
+ *
+ */
 public class PassengerQueueGUI extends JPanel implements QObserver {
 
     private SimulationGUI theView;

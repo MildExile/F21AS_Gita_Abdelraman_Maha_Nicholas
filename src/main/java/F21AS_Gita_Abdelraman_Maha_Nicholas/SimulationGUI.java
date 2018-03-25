@@ -6,6 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+/**
+ * A Class that display the GUI 
+ * it Includes all the buttons, JPanels and other information related to the passenger to be processed 
+ * @authors
+ *
+ */
 public class SimulationGUI extends JFrame  {
 
 	private CheckInModel theModel;
