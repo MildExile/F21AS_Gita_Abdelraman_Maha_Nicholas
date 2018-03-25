@@ -3,12 +3,17 @@ package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Class to process one passenger from the front of the passenger queue 
+ * to be processed by the available checkIn Desk 
+ * @author Nicholas Wiecek
+ *
+ */
 public class CheckInDeskGUI extends JPanel implements CObserver {
 
     SimulationGUI theView;
     private CheckInDesk cid;
-    private NextPassenger np;
+   // private NextPassenger np;
     private JTextArea cidTextArea = new JTextArea();
 
     //setup GUI for a check in desk
@@ -28,19 +33,12 @@ public class CheckInDeskGUI extends JPanel implements CObserver {
 
     }
 
-    /*public void setCurrentlyDoingText() {
-        String info = cid.DisplayPassengerDeskInfo();
-        this.cidTextArea.setText(info);
-    }*/
+   
 
     public void update() {
-        //System.out.println(cid.DisplayPassengerDeskInfo());
-        //System.out.println(cid.getCM());
-        /*if (cid.getCM() != null) {
-            System.out.println(cid.getCM());
-        }*/
-        theView.addCheckInDeskPanel(this);
-        String info = cid.DisplayPassengerDeskInfo();
+
+       // theView.addCheckInDeskPanel(this);
+       String info = cid.DisplayPassengerDeskInfo();
 
         cidTextArea.setText(info);
         theView.setVisible(true);

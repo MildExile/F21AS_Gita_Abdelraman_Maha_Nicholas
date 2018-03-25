@@ -1,11 +1,14 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
-import java.awt.peer.SystemTrayPeer;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
-public class NextPassenger implements QSubject, CSubject{
+/**
+ * This class acts like a shared object between the Passenger Queue and Check In Desk
+ * This is the next passenger to be checkedIn on the top of the Passenger Queuer 
+ * @author Nicholas Wiecek
+ */
+public class NextPassenger {
 
     private boolean empty;
     private boolean done;
@@ -19,9 +22,14 @@ public class NextPassenger implements QSubject, CSubject{
 
     }
 
-    //get single passenger from queue and return string
+   /**
+    * a method that return the passenger object 
+    * @return p which indicates the next passenger to be processed by CheckIn Desk
+    */
     public synchronized Passenger get()
     {
+    	//while true 
+    	// a method to makes the checkIn desk Waits if there is no passenger 
         while (empty) {
             try {
                 wait();
@@ -31,12 +39,13 @@ public class NextPassenger implements QSubject, CSubject{
         }
         empty = true;
         notifyAll();
-
-
         return p;
     }
 
-    //put the passenger into the queue to be used
+   /**
+    * Method which puts the passenger into the sharedObject 
+    * @param p to indicate which passenger to be inserted next 
+    */
     public synchronized void put(Passenger p) {
         while (!empty) {
             try {
@@ -63,34 +72,5 @@ public class NextPassenger implements QSubject, CSubject{
     }
 
 
-    private List<QObserver> registeredQObservers = new LinkedList<QObserver>();
-
-    public synchronized void registerQObserver(QObserver obs) {
-        registeredQObservers.add(obs);
-    }
-
-    public synchronized void removeQObserver(QObserver obs) {
-        registeredQObservers.remove(obs);
-    }
-
-    public synchronized void notifyQObservers() {
-        for (QObserver obs : registeredQObservers)
-            obs.update();
-    }
-
-    private List<CObserver> registeredCObservers = new LinkedList<CObserver>();
-
-    public synchronized void registerCObserver(CObserver obs) {
-        registeredCObservers.add(obs);
-    }
-
-    public synchronized void removeCObserver(CObserver obs) {
-        registeredCObservers.remove(obs);
-    }
-
-    public synchronized void notifyCObservers() {
-        for (CObserver obs : registeredCObservers)
-            obs.update();
-    }
 
 }

@@ -5,15 +5,15 @@ import java.util.*;
 public class PassengerQueue extends Thread implements QSubject{
 
     private NextPassenger np;
-    private ArrayList<Passenger> pq = new ArrayList<Passenger>();
-    private boolean firstRun;
+    private LinkedList<Passenger> pq = new LinkedList<Passenger>();
+    //private boolean firstRun;
     private Passenger p;
-    private String qm;
+    //private String qm;
 
     public PassengerQueue(NextPassenger np)
     {
         this.np = np;
-        this.firstRun = true;
+        //this.firstRun = true;
     }
 
     public void addToQueue(Passenger p) {
@@ -26,9 +26,9 @@ public class PassengerQueue extends Thread implements QSubject{
     public NextPassenger getNextPassenger() {
         return np;
     }
-    public String getQM() {
+/*    public String getQM() {
         return qm;
-    }
+    }*/
     //run to create a producer to enter values into the shared object passenger class
     public void run() {
         while (pq.isEmpty()) {
@@ -52,8 +52,11 @@ public class PassengerQueue extends Thread implements QSubject{
             {
                 System.err.println(e.getMessage());
             }
+            //get the top entry of the LinkedList
+            //and assign it to a passenger
             p = pq.get(0);
-
+            
+            //put it into the synchronized shared object 
             np.put(p);
 
             notifyQObservers();
@@ -72,7 +75,9 @@ public class PassengerQueue extends Thread implements QSubject{
     //format the passenger details into a string to be printed
     public String generateQueueDetails() {
 
-
+        // to remove the top entry of the queue 
+        pq.remove(0);
+        
         String report = "";
         for (int i = 0; i < pq.size(); i++) {
 
@@ -88,7 +93,7 @@ public class PassengerQueue extends Thread implements QSubject{
                 System.err.println(e.getMessage());
             }
         }
-        pq.remove(0);
+
 
         return report;
     }

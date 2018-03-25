@@ -55,13 +55,8 @@ public class SimulationController {
             theView.enableSlowPassengerArrivalButton();
 
 
-            //PassengerQueueGUI pqGUI = new PassengerQueueGUI(theView, theModel.getPQ());
-            //theModel.passengerArrives();
 
-
-            //CheckInDeskGUI cidGUI = new CheckInDeskGUI(theModel.getCid());
-            //theView.addCheckInDeskPanel(cidGUI);
-
+            //the sharedObject
             NextPassenger np = new NextPassenger();
 
             pa = new PassengerArrival(np, theModel);
@@ -98,7 +93,7 @@ public class SimulationController {
             CheckInDeskGUI cidGUI4 = new CheckInDeskGUI(theView, cid4);
             Thread cid4Thread = new Thread(cid4);
             cid4Thread.start();
-
+            
             //theModel.checkInDeskOpen();
             theView.setVisible(true);
         }

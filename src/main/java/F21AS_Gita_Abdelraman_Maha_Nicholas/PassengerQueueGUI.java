@@ -21,25 +21,21 @@ public class PassengerQueueGUI extends JPanel implements QObserver {
 
         pqList.setEditable(false);
         JScrollPane pqScroll = new JScrollPane(pqList);
-        pqScroll.setPreferredSize(new Dimension(380,80));
+        pqScroll.setPreferredSize(new Dimension(360,80));
         pqScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         add(pqScroll);
         theView.addPassengerQueuePanel(this);
     }
 
     public void update() {
-        //System.out.println(pq.generateQueueDetails());
-        //System.out.println(pq.getQM());
-        /*if (pq.getQM() != null) {
-            System.out.println(pq.getQM());
-        }*/
-        theView.addPassengerQueuePanel(this);
+  
+       // theView.addPassengerQueuePanel(this);
 
         String info = pq.getQueueSize() + " Passengers still waiting to check in:\n";
         info += pq.generateQueueDetails();
 
         pqList.setText(info);
-        pqList.setVisible(true);
+
 
         theView.setVisible(true);
 

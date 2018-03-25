@@ -2,7 +2,11 @@ package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * This is a model for processing next passenger from the passenger Queue 
+ * @author Nichloas Wiecek 
+ *
+ */
 public class CheckInDesk extends Thread implements CSubject {
     private NextPassenger np;
     private Passenger p;
