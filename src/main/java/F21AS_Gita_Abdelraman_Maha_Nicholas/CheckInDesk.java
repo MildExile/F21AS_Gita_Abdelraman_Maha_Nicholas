@@ -67,7 +67,7 @@ public class CheckInDesk extends Thread implements CSubject {
      * While processing them in the CheckInDesk
      * @return report which a String that contains the required information to be displayed 
      */
-    public String DisplayPassengerDeskInfo()
+    public String displayPassengerDeskInfo()
     {
         String report="";
 
@@ -76,7 +76,7 @@ public class CheckInDesk extends Thread implements CSubject {
             report+= String.format("%s is dropping off ", p.getFullName());
             report+= String.format("1 bag of %.2f kg.\n", p.getBagWeight());
             if (p.isThereExcessBag()) {
-                report+= String.format("A baggage fee of £%.2f is due.", p.getBagWeight());
+                report+= String.format("A baggage fee of ï¿½%.2f is due.", p.getBagWeight());
             }
         }
         catch(NullPointerException e)

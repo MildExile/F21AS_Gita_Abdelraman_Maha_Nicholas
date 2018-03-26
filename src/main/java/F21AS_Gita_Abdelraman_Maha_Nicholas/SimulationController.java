@@ -10,6 +10,9 @@ public class SimulationController {
     private static int PositiveTimerAdjust = 500;
     private static int NegativeTimerAdjust = -500;
 
+    private Thread[] cidThreads;
+    private Thread[] paThreads;
+    private NextPassenger nextPass = new NextPassenger();
     private CheckInDesk cid;
     private CheckInDesk cid2;
     private PassengerArrival pa;
@@ -104,6 +107,12 @@ public class SimulationController {
     {
         public void actionPerformed(ActionEvent e)
         {
+
+
+            CheckInDesk tempCid = new CheckInDesk(nextPass);
+            CheckInDeskGUI tempGUI = new CheckInDeskGUI(theView, tempCid);
+            Thread cidTempThread = new Thread();
+            cidTempThread.start();
 
         }
     }

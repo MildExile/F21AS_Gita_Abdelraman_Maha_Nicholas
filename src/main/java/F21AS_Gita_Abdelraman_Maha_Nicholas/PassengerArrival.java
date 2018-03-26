@@ -28,6 +28,17 @@ public class PassengerArrival implements Runnable {
         this.theModel = theModel;
         this.np = new NextPassenger();
         this.pq = new PassengerQueue(np);
+
+        //get rid of all CheckedIn Passengers
+        // as results the queue will have only unCheckedIn passengers
+        /*for (Passenger p : model.listOfPassengers)
+        {
+            if (p.getCheckedIn() == true) {
+                model.listOfPassengers.remove(p);
+            }
+        }*/
+
+
     }
     
     public PassengerQueue getPQ() {

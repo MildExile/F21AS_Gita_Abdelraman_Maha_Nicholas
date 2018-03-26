@@ -38,7 +38,7 @@ public class CheckInDeskGUI extends JPanel implements CObserver {
     public void update() {
 
        // theView.addCheckInDeskPanel(this);
-       String info = cid.DisplayPassengerDeskInfo();
+       String info = cid.displayPassengerDeskInfo();
 
         cidTextArea.setText(info);
         theView.setVisible(true);
