@@ -15,12 +15,12 @@ public class PassengerQueue extends Thread implements QSubject{
     private LinkedList<Passenger> pq = new LinkedList<Passenger>();
   
     private Passenger p;
+    private boolean done = false;
 
 
     public PassengerQueue(NextPassenger np)
     {
         this.np = np;
-        //this.firstRun = true;
     }
     /**
      * A method which is used to append a passenger into a queue 
@@ -28,6 +28,10 @@ public class PassengerQueue extends Thread implements QSubject{
      */
     public void addToQueue(Passenger p) {
         pq.add(p);
+    }
+
+    public void setDone() {
+        done = true;
     }
     /**
      * a method which return the size of the queue 
@@ -80,7 +84,6 @@ public class PassengerQueue extends Thread implements QSubject{
         }
 
         System.out.println("End of Producer Thread");
-        np.setDone();
     }
 
     

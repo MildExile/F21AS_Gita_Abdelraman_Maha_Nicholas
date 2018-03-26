@@ -11,9 +11,9 @@ public class Passenger {
     private String firstName;
     private String lastName;
     private boolean checkedIn;
-    private int bagVolume = 0;
-    private float bagWeight = 0.0f;
-    private float excessBagCost = 0.0f;
+    private float bagVolume;
+    private float bagWeight;
+    private float excessBagCost;
     private float x;
     private float z;
     private float y;
@@ -27,6 +27,9 @@ public class Passenger {
         this.firstName = firstName;
         this.lastName = lastName;
         this.checkedIn = checkedIn;
+        bagVolume = 0;
+        bagWeight = 0.0f;
+        excessBagCost = 0.0f;
     }
 
     /**
@@ -74,7 +77,7 @@ public class Passenger {
         return this.checkedIn;
     }
 
-    public int getBagVolume() {
+    public float getBagVolume() {
         return this.bagVolume;
     }
 
@@ -91,6 +94,7 @@ public class Passenger {
     	this.x = x;
     	this.y = y;
     	this.z = z;
+    	this.bagVolume = x * y * z;
     }
     
     public String getBagDimension()
@@ -112,10 +116,11 @@ public class Passenger {
     /**
      * a method which calculate weather or not  the passenger have fees to pay 
      */
-    public void excessBagCalculation() {
+    public float getExcessBagCalculation() {
         if (isThereExcessBag()) {
             this.excessBagCost = Math.abs((this.getBagWeight() - excessBagLimit)) * excessBagCostPerUnit;
         }
+        return excessBagCost;
     }
 
 }

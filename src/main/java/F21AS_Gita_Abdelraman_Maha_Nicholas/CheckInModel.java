@@ -22,13 +22,11 @@ public class CheckInModel  {
     protected ArrayList<Passenger> listOfPassengers;
     protected ArrayList<Flight> listOfFlights;
     protected Passenger currentPassenger;
-    private String bookingFile = "src/main/resources/PassengerData.csv";
+    private String bookingFile = "src/main/resources/PassengersData.csv";
     private String flightFile = "src/main/resources/FlightData.csv";
  
 
     /**constructor to create CheckInModel, flight data and passenger data are read here
-     * @param bookingFile the name of the passenger data input file
-     * @param flightFile the name of the flight data input file
      */
     public CheckInModel()
     {

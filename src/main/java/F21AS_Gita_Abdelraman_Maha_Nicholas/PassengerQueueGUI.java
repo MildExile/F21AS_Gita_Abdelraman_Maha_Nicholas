@@ -14,8 +14,9 @@ public class PassengerQueueGUI extends JPanel implements QObserver {
 
     private SimulationGUI theView;
     private PassengerQueue pq;
-    private NextPassenger np;
     private JTextArea pqList = new JTextArea();
+
+    private Log logObj;
 
 
 
@@ -23,7 +24,7 @@ public class PassengerQueueGUI extends JPanel implements QObserver {
     public PassengerQueueGUI(SimulationGUI theView, PassengerQueue pq) {
         this.theView = theView;
         this.pq = pq;
-        pq.registerQObserver(this);
+        this.pq.registerQObserver(this);
 
         pqList.setEditable(false);
         JScrollPane pqScroll = new JScrollPane(pqList);
@@ -34,14 +35,14 @@ public class PassengerQueueGUI extends JPanel implements QObserver {
     }
 
     public void update() {
-  
-       // theView.addPassengerQueuePanel(this);
 
         String info = pq.getQueueSize() + " Passengers still waiting to check in:\n";
         info += pq.generateQueueDetails();
 
-        pqList.setText(info);
+        logObj = Log.getInstance();
+        logObj.insertLogsIntoArray(info);
 
+        pqList.setText(info);
 
         theView.setVisible(true);
 

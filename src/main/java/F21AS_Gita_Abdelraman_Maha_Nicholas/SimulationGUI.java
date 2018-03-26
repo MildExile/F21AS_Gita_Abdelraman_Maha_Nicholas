@@ -30,6 +30,7 @@ public class SimulationGUI extends JFrame  {
 	private JButton fastCheckIn;
 	private JButton slowPassengerArrival;
 	private JButton fastPassengerArrival;
+	private JButton genLogReport;
 	private JTextField checkInDeskSpeed;
 	private JTextField passArrivalSpeed;
 	private JTextField flightSpeed;
@@ -91,21 +92,17 @@ public class SimulationGUI extends JFrame  {
 
 		checkInDeskSpeed = new JTextField();
 		checkInDeskSpeed.setEditable(false);
-		//checkInDeskSpeed.setText("Check in desk speed now : " +String.valueOf(theModel.getCid().getCidTimer()));
 		JPanel cidArea = new JPanel();
 		cidArea.add(checkInDeskSpeed, BorderLayout.NORTH);
 		cidArea.add(cScroll, BorderLayout.CENTER);
 		cidArea.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 
 		flightPanel = new JPanel();
-		flightPanel.setLayout(new GridLayout(0,3));
+		flightPanel.setLayout(new GridLayout(0,2));
 		JScrollPane fScroll = new JScrollPane(flightPanel);
-		//fScroll.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 
-		flightSpeed = new JTextField();
-		flightSpeed.setEditable(false);
+
 		JPanel flightArea = new JPanel();
-		flightArea.add(flightSpeed, BorderLayout.NORTH);
 		flightArea.add(fScroll, BorderLayout.CENTER);
 		flightArea.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 
@@ -120,6 +117,8 @@ public class SimulationGUI extends JFrame  {
 		fastCheckIn = new JButton("Speed up Check In");
 		slowPassengerArrival = new JButton("Slow down Arrivals");
 		fastPassengerArrival = new JButton("Speed up Arrivals");
+		genLogReport = new JButton("Generate log report");
+
 		
 		addCheckInDesk.setEnabled(false);
 		removeCheckInDesk.setEnabled(false);
@@ -129,6 +128,7 @@ public class SimulationGUI extends JFrame  {
 		fastCheckIn.setEnabled(false);
 		slowPassengerArrival.setEnabled(false);
 		fastPassengerArrival.setEnabled(false);
+		genLogReport.setEnabled(false);
 
 		addCheckInDesk.setPreferredSize(new Dimension(150,40));
 		removeCheckInDesk.setPreferredSize(new Dimension(150,40));
@@ -138,15 +138,17 @@ public class SimulationGUI extends JFrame  {
 		fastCheckIn.setPreferredSize(new Dimension(150,40));
 		slowPassengerArrival.setPreferredSize(new Dimension(150,40));
 		fastPassengerArrival.setPreferredSize(new Dimension(150,40));
+		genLogReport.setPreferredSize(new Dimension(150,40));
 
-		interactionPanel.add(addCheckInDesk);
-		interactionPanel.add(removeCheckInDesk);
-		interactionPanel.add(addPassengerQueue);
-		interactionPanel.add(removePassengerQueue);
+		//interactionPanel.add(addCheckInDesk);
+		//interactionPanel.add(removeCheckInDesk);
+		//interactionPanel.add(addPassengerQueue);
+		//interactionPanel.add(removePassengerQueue);
 		interactionPanel.add(slowCheckIn);
 		interactionPanel.add(fastCheckIn);
 		interactionPanel.add(slowPassengerArrival);
 		interactionPanel.add(fastPassengerArrival);
+		interactionPanel.add(genLogReport);
 
 		JScrollPane iScroll = new JScrollPane(interactionPanel);
 		iScroll.setBorder(new LineBorder(new Color(0, 0, 0), 1));
@@ -196,6 +198,10 @@ public class SimulationGUI extends JFrame  {
 		slowPassengerArrival.addActionListener(al);
 	}
 
+	public void genLogReportListener(ActionListener al) {
+		genLogReport.addActionListener(al);
+	}
+
 
 	public void disableStartSimulationButton() {
 		startSimulation.setEnabled(false);
@@ -232,6 +238,14 @@ public class SimulationGUI extends JFrame  {
 
 	public void disableRemovePassengerQueueButton() {
 		removePassengerQueue.setEnabled(false);
+	}
+
+	public void enableGenLogReportButton() {
+		genLogReport.setEnabled(true);
+	}
+
+	public void disablegenLogReportButton() {
+		genLogReport.setEnabled(false);
 	}
 
 	public void enableSlowCheckInButton() {

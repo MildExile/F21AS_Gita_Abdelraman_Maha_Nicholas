@@ -11,17 +11,19 @@ import java.awt.*;
  */
 public class CheckInDeskGUI extends JPanel implements CObserver {
 
-    SimulationGUI theView;
+    private SimulationGUI theView;
     private CheckInDesk cid;
-   // private NextPassenger np;
     private JTextArea cidTextArea = new JTextArea();
+
+    private Log logObj;
+
 
     //setup GUI for a check in desk
     public CheckInDeskGUI(SimulationGUI theView, CheckInDesk cid) {
 
         this.theView = theView;
         this.cid = cid;
-        cid.registerCObserver(this);
+        this.cid.registerCObserver(this);
 
 
         cidTextArea.setPreferredSize(new Dimension(180,80));
@@ -37,10 +39,20 @@ public class CheckInDeskGUI extends JPanel implements CObserver {
 
     public void update() {
 
-       // theView.addCheckInDeskPanel(this);
-       String info = cid.displayPassengerDeskInfo();
+        String info = "";
+        if (!cid.getDone()) {
+            info = cid.displayPassengerDeskInfo();
+            cidTextArea.setText(info);
 
-        cidTextArea.setText(info);
+            logObj = Log.getInstance();
+            logObj.insertLogsIntoArray(info);
+
+        } else {
+            this.removeAll();
+        }
+
+
+
         theView.setVisible(true);
     }
 }

@@ -1,5 +1,6 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,6 +21,8 @@ public class SimulationController {
     private CheckInDesk cid3;
     private CheckInDesk cid4;
 
+    private Log logObj;
+
     public SimulationController(CheckInModel theModel, SimulationGUI theView) {
         this.theModel = theModel;
 
@@ -34,6 +37,7 @@ public class SimulationController {
         theView.slowCheckInListener(new SlowCheckInController());
         theView.fastPassengerArrivalListener(new FastPassengerArrivalController());
         theView.slowPassengerArrivalListener(new SlowPassengerArrivalController());
+        theView.genLogReportListener(new GenLogReportController());
 
         /*Thread t1 = new Thread(theModel);
         t1.start();*/
@@ -56,7 +60,7 @@ public class SimulationController {
             theView.enableSlowCheckInButton();
             theView.enableFastPassengerArrivalButton();
             theView.enableSlowPassengerArrivalButton();
-
+            theView.enableGenLogReportButton();
 
 
             //the sharedObject
@@ -73,8 +77,9 @@ public class SimulationController {
             //pa2 = new PassengerArrival(np2, theModel);
             //PassengerQueueGUI pqGUI2 = new PassengerQueueGUI(theView, pa2.getPQ());
 
-            cid = new CheckInDesk(np);
+            cid = new CheckInDesk(theModel, np);
             CheckInDeskGUI cidGUI = new CheckInDeskGUI(theView, cid);
+            FlightGUI flGUI = new FlightGUI(theView,cid);
 
             theView.setPassArrivalSpeed(pa.getPassArriveTimer());
             theView.setCheckInSpeed(cid.getCidTimer());
@@ -82,22 +87,24 @@ public class SimulationController {
             Thread cidThread = new Thread(cid);
             cidThread.start();
 
-            cid2 = new CheckInDesk(np);
+            cid2 = new CheckInDesk(theModel, np);
             CheckInDeskGUI cidGUI2 = new CheckInDeskGUI(theView, cid2);
+            FlightGUI flGUI2 = new FlightGUI(theView,cid2);
             Thread cid2Thread = new Thread(cid2);
             cid2Thread.start();
 
-            cid3 = new CheckInDesk(np);
+            cid3 = new CheckInDesk(theModel, np);
             CheckInDeskGUI cidGUI3 = new CheckInDeskGUI(theView, cid3);
+            FlightGUI flGUI3 = new FlightGUI(theView,cid3);
             Thread cid3Thread = new Thread(cid3);
             cid3Thread.start();
 
-            cid4 = new CheckInDesk(np);
+            cid4 = new CheckInDesk(theModel, np);
             CheckInDeskGUI cidGUI4 = new CheckInDeskGUI(theView, cid4);
+            FlightGUI flGUI4 = new FlightGUI(theView,cid4);
             Thread cid4Thread = new Thread(cid4);
             cid4Thread.start();
-            
-            //theModel.checkInDeskOpen();
+
             theView.setVisible(true);
         }
     }
@@ -109,10 +116,10 @@ public class SimulationController {
         {
 
 
-            CheckInDesk tempCid = new CheckInDesk(nextPass);
+            /*CheckInDesk tempCid = new CheckInDesk(theModel, nextPass);
             CheckInDeskGUI tempGUI = new CheckInDeskGUI(theView, tempCid);
             Thread cidTempThread = new Thread();
-            cidTempThread.start();
+            cidTempThread.start();*/
 
         }
     }
@@ -130,6 +137,16 @@ public class SimulationController {
         public void actionPerformed(ActionEvent e)
         {
 
+        }
+    }
+
+    class GenLogReportController implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            logObj = Log.getInstance();
+            logObj.writeLogIntoFile();
+            JOptionPane.showMessageDialog(null, "Please open output.txt in the resource folder to view the log");
         }
     }
 

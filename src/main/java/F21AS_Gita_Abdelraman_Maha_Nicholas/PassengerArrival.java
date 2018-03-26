@@ -60,6 +60,7 @@ public class PassengerArrival implements Runnable {
         }
 
         System.out.println("Entire Passenger list queued");
+        pq.setDone();
     }
 
     /**
@@ -96,6 +97,7 @@ public class PassengerArrival implements Runnable {
         }// end of if
         //Remove the passenger that has been inserted into the queue from the lisOfPassengers 
         theModel.listOfPassengers.remove(passengerIndex);
+
     }
     /**
      * Method used to control the run time of the queue which will be accessed through GUI 

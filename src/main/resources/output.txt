@@ -1,0 +1,150 @@
+3 Passengers still waiting to check in:
+    EJ1212      Paul Salvaggio               40,00 kg    132.0X144.0X85.0
+    ST0210     Carla Pritchard               23,00 kg    68.0X137.0X161.0
+    KL0102     Adriana Larocca               17,00 kg    155.0X60.0X152.0
+
+JJ4110 Oslo
+1 checked in
+Cargo hold has : 1514750.0
+Of Max Volume : 200000
+Lucy Emry is dropping off 1 bag of 20,00 kg.
+
+EJ1212 Malta
+1 checked in
+Cargo hold has : 1615680.0
+Of Max Volume : 30000000
+3 Passengers still waiting to check in:
+    ST0210     Carla Pritchard               23,00 kg    68.0X137.0X161.0
+    KL0102     Adriana Larocca               17,00 kg    155.0X60.0X152.0
+    KL0102       Neomi Santini               22,00 kg     175.0X54.0X60.0
+
+Paul Salvaggio is dropping off 1 bag of 40,00 kg.
+A baggage fee of £160,00 is due.
+3 Passengers still waiting to check in:
+    KL0102     Adriana Larocca               17,00 kg    155.0X60.0X152.0
+    KL0102       Neomi Santini               22,00 kg     175.0X54.0X60.0
+    KL0102     Josiah Sangster                9,00 kg     85.0X105.0X68.0
+
+ST0210 Isle of Skye
+1 checked in
+Cargo hold has : 1499876.0
+Of Max Volume : 300000
+Carla Pritchard is dropping off 1 bag of 23,00 kg.
+
+3 Passengers still waiting to check in:
+    KL0102       Neomi Santini               22,00 kg     175.0X54.0X60.0
+    KL0102     Josiah Sangster                9,00 kg     85.0X105.0X68.0
+    QA5305      Adele Steenwyk               47,00 kg   157.0X119.0X108.0
+    BA3131        Krissy Samul               23,00 kg    44.0X118.0X100.0
+
+KL0102 Barcelona
+1 checked in
+Cargo hold has : 1413600.0
+Of Max Volume : 70000000
+Adriana Larocca is dropping off 1 bag of 17,00 kg.
+
+KL0102 Barcelona
+2 checked in
+Cargo hold has : 1980600.0
+Of Max Volume : 70000000
+4 Passengers still waiting to check in:
+    KL0102     Josiah Sangster                9,00 kg     85.0X105.0X68.0
+    QA5305      Adele Steenwyk               47,00 kg   157.0X119.0X108.0
+    BA3131        Krissy Samul               23,00 kg    44.0X118.0X100.0
+    EJ1212     Alejandra Varoz                8,00 kg      49.0X67.0X24.0
+
+Neomi Santini is dropping off 1 bag of 22,00 kg.
+
+KL0102 Barcelona
+3 checked in
+Cargo hold has : 2587500.0
+Of Max Volume : 70000000
+5 Passengers still waiting to check in:
+    QA5305      Adele Steenwyk               47,00 kg   157.0X119.0X108.0
+    BA3131        Krissy Samul               23,00 kg    44.0X118.0X100.0
+    EJ1212     Alejandra Varoz                8,00 kg      49.0X67.0X24.0
+    JJ4210        Lean Dimitry               22,00 kg    173.0X16.0X115.0
+    KL0102       Satash Rummer               22,00 kg     22.0X144.0X47.0
+
+Josiah Sangster is dropping off 1 bag of 9,00 kg.
+
+5 Passengers still waiting to check in:
+    BA3131        Krissy Samul               23,00 kg    44.0X118.0X100.0
+    EJ1212     Alejandra Varoz                8,00 kg      49.0X67.0X24.0
+    JJ4210        Lean Dimitry               22,00 kg    173.0X16.0X115.0
+    KL0102       Satash Rummer               22,00 kg     22.0X144.0X47.0
+    KL0102       Farah Pridgen               44,00 kg    132.0X20.0X106.0
+    EJ1212       Julian Larger               18,00 kg   164.0X115.0X177.0
+
+QA5305 Glasgow
+1 checked in
+Cargo hold has : 2017764.0
+Of Max Volume : 4000000
+Adele Steenwyk is dropping off 1 bag of 47,00 kg.
+A baggage fee of £230,00 is due.
+BA3131 Jamaica
+1 checked in
+Cargo hold has : 519200.0
+Of Max Volume : 1000000
+5 Passengers still waiting to check in:
+    EJ1212     Alejandra Varoz                8,00 kg      49.0X67.0X24.0
+    JJ4210        Lean Dimitry               22,00 kg    173.0X16.0X115.0
+    KL0102       Satash Rummer               22,00 kg     22.0X144.0X47.0
+    KL0102       Farah Pridgen               44,00 kg    132.0X20.0X106.0
+    EJ1212       Julian Larger               18,00 kg   164.0X115.0X177.0
+
+Krissy Samul is dropping off 1 bag of 23,00 kg.
+
+EJ1212 Malta
+2 checked in
+Cargo hold has : 1694472.0
+Of Max Volume : 30000000
+6 Passengers still waiting to check in:
+    JJ4210        Lean Dimitry               22,00 kg    173.0X16.0X115.0
+    KL0102       Satash Rummer               22,00 kg     22.0X144.0X47.0
+    KL0102       Farah Pridgen               44,00 kg    132.0X20.0X106.0
+    EJ1212       Julian Larger               18,00 kg   164.0X115.0X177.0
+    AA5434       Norman Vargas               26,00 kg    145.0X124.0X86.0
+    AA5434     Kendra Vannette               13,00 kg     14.0X53.0X121.0
+
+Alejandra Varoz is dropping off 1 bag of 8,00 kg.
+
+JJ4210 Venice
+1 checked in
+Cargo hold has : 318320.0
+Of Max Volume : 5000000
+7 Passengers still waiting to check in:
+    KL0102       Satash Rummer               22,00 kg     22.0X144.0X47.0
+    KL0102       Farah Pridgen               44,00 kg    132.0X20.0X106.0
+    EJ1212       Julian Larger               18,00 kg   164.0X115.0X177.0
+    AA5434       Norman Vargas               26,00 kg    145.0X124.0X86.0
+    AA5434     Kendra Vannette               13,00 kg     14.0X53.0X121.0
+    BA0101      Johnna Stegall               39,00 kg      64.0X81.0X53.0
+    BA3131  Sanjuana Sanderlin                8,00 kg   150.0X137.0X119.0
+
+Lean Dimitry is dropping off 1 bag of 22,00 kg.
+
+7 Passengers still waiting to check in:
+    KL0102       Farah Pridgen               44,00 kg    132.0X20.0X106.0
+    EJ1212       Julian Larger               18,00 kg   164.0X115.0X177.0
+    AA5434       Norman Vargas               26,00 kg    145.0X124.0X86.0
+    AA5434     Kendra Vannette               13,00 kg     14.0X53.0X121.0
+    BA0101      Johnna Stegall               39,00 kg      64.0X81.0X53.0
+    BA3131  Sanjuana Sanderlin                8,00 kg   150.0X137.0X119.0
+    AA5434     Sabrina Venneri               43,00 kg    84.0X107.0X148.0
+
+KL0102 Barcelona
+4 checked in
+Cargo hold has : 2736396.0
+Of Max Volume : 70000000
+Satash Rummer is dropping off 1 bag of 22,00 kg.
+
+7 Passengers still waiting to check in:
+    EJ1212       Julian Larger               18,00 kg   164.0X115.0X177.0
+    AA5434       Norman Vargas               26,00 kg    145.0X124.0X86.0
+    AA5434     Kendra Vannette               13,00 kg     14.0X53.0X121.0
+    BA0101      Johnna Stegall               39,00 kg      64.0X81.0X53.0
+    BA3131  Sanjuana Sanderlin                8,00 kg   150.0X137.0X119.0
+    AA5434     Sabrina Venneri               43,00 kg    84.0X107.0X148.0
+    ST0210   Kamilah Stanforth               34,00 kg      53.0X37.0X46.0
+
