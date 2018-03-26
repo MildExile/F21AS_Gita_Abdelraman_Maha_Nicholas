@@ -15,6 +15,7 @@ public class PassengerQueueGUI extends JPanel implements QObserver {
     private SimulationGUI theView;
     private PassengerQueue pq;
     private NextPassenger np;
+    private Log logObj;
     private JTextArea pqList = new JTextArea();
 
 
@@ -39,9 +40,12 @@ public class PassengerQueueGUI extends JPanel implements QObserver {
 
         String info = pq.getQueueSize() + " Passengers still waiting to check in:\n";
         info += pq.generateQueueDetails();
-
+        
+        logObj = Log.getInstance();
+        logObj.insertLogsIntoArray(info);
+        System.out.println(info+"information from update ");
         pqList.setText(info);
-
+        
 
         theView.setVisible(true);
 

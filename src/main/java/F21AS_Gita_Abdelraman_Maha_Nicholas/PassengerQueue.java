@@ -13,7 +13,7 @@ public class PassengerQueue extends Thread implements QSubject{
 
     private NextPassenger np;
     private LinkedList<Passenger> pq = new LinkedList<Passenger>();
-  
+   
     private Passenger p;
 
 
@@ -107,9 +107,11 @@ public class PassengerQueue extends Thread implements QSubject{
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+       
+            
         }
 
-
+        
         return report;
     }
 

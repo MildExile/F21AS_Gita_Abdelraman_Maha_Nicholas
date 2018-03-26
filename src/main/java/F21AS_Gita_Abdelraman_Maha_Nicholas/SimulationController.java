@@ -9,6 +9,7 @@ public class SimulationController {
     private SimulationGUI theView;
     private static int PositiveTimerAdjust = 500;
     private static int NegativeTimerAdjust = -500;
+    private Log logObj;
 
     private CheckInDesk cid;
     private CheckInDesk cid2;
@@ -19,7 +20,7 @@ public class SimulationController {
 
     public SimulationController(CheckInModel theModel, SimulationGUI theView) {
         this.theModel = theModel;
-
+        
         this.theView = theView;
 
         theView.startSimulationListener(new StartSimulationController());
@@ -104,7 +105,8 @@ public class SimulationController {
     {
         public void actionPerformed(ActionEvent e)
         {
-
+        		logObj = Log.getInstance();
+        		logObj.writeLogIntoFile();
         }
     }
 

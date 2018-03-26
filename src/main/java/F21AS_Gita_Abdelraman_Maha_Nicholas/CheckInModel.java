@@ -3,6 +3,7 @@ package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -69,12 +70,19 @@ public class CheckInModel  {
 
         }// end of try
 
+
         catch(FileNotFoundException e)
         {
             System.out.printf("FILE NAME %s  NOT FOUND %n",fileName );
             System.err.println("ERROR "+ e.getMessage());
             System.exit(1);
         }// end of catch
+        
+        catch(IOException e2)
+        {
+        	System.err.println(e2.getMessage());
+        }
+
         
         finally
         {
@@ -143,6 +151,11 @@ public class CheckInModel  {
             System.err.println("ERROR "+ e.getMessage());
             System.exit(1);
         }// end of catch
+        
+        catch(IOException error)
+        {
+        	System.err.print(error.getMessage());
+        }
         
         finally
         {

@@ -21,6 +21,8 @@ public class CheckInDesk extends Thread implements CSubject {
     private Passenger p;
     //define CheckInDisk Timer in order to wait the thread 
     private int cidTimer = 1000;
+    
+    private Log logObj;
 
     public CheckInDesk(NextPassenger np)
     {
@@ -78,6 +80,8 @@ public class CheckInDesk extends Thread implements CSubject {
             if (p.isThereExcessBag()) {
                 report+= String.format("A baggage fee of £%.2f is due.", p.getBagWeight());
             }
+            logObj = Log.getInstance();
+            logObj.insertLogsIntoArray(report);
         }
         catch(NullPointerException e)
         {
@@ -90,6 +94,7 @@ public class CheckInDesk extends Thread implements CSubject {
             System.err.println(e.getMessage());
 
         }
+
         return report;
     }
     /**
