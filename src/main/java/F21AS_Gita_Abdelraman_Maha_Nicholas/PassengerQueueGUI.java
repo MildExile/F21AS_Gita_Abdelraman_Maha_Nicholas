@@ -7,6 +7,7 @@ import java.util.ArrayList;
 /**
  * Class to process one passenger from the front of the passenger queue 
  * pass it to the NextPassenger which is the shared object to be passed next to the CheckInDesk in order to process the passenegr
+ * This class also record all the updates (logs) of the queue 
  * @authors
  *
  */
@@ -36,14 +37,14 @@ public class PassengerQueueGUI extends JPanel implements QObserver {
 
     public void update() {
   
-       // theView.addPassengerQueuePanel(this);
+   
 
         String info = pq.getQueueSize() + " Passengers still waiting to check in:\n";
         info += pq.generateQueueDetails();
         
         logObj = Log.getInstance();
         logObj.insertLogsIntoArray(info);
-        System.out.println(info+"information from update ");
+     
         pqList.setText(info);
         
 
