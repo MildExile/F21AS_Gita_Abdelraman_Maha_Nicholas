@@ -8,19 +8,27 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
-
+/**
+ * This class is the model which reads csv file for both flight and passengers data
+ * Creates two ArrayList one for Passengers and the other for Flight
+ * Each ArrayList consists of either Passenger Object or Flight Object and contains all the information
+ * Has all the methods needed to process objects, display output
+ * We use it to pull all the information from the files
+ * @authors Abdelrahman,Gita, Maha and Nicholas 
+ *
+ */
 public class CheckInModel  {
 
     protected ArrayList<Passenger> listOfPassengers;
     protected ArrayList<Flight> listOfFlights;
     protected Passenger currentPassenger;
+    private String bookingFile = "src/main/resources/PassengersData.csv";
+    private String flightFile = "src/main/resources/FlightData.csv";
  
 
     /**constructor to create CheckInModel, flight data and passenger data are read here
-     * @param bookingFile the name of the passenger data input file
-     * @param flightFile the name of the flight data input file
      */
-    public CheckInModel(String bookingFile, String flightFile)
+    public CheckInModel()
     {
         listOfPassengers = new ArrayList<Passenger>();
         listOfFlights = new ArrayList<Flight>();
@@ -37,14 +45,16 @@ public class CheckInModel  {
      */
     public void readFileForFlight(String fileName)
     {
+    	File f ;
+    	Scanner input = null;
         try
         {
 
-            File f = new File(fileName);
+             f = new File(fileName);
 
             //To enable input
-            Scanner input = new Scanner(f);
-
+             input = new Scanner(f);
+           
             while(input.hasNextLine())
             {
                 String line = input.nextLine();
@@ -63,6 +73,15 @@ public class CheckInModel  {
             System.err.println("ERROR "+ e.getMessage());
             System.exit(1);
         }// end of catch
+        
+        finally
+        {
+        	
+        	input.close();
+        	
+        }
+        
+        
 
     }// end of readFile method
 
@@ -94,13 +113,15 @@ public class CheckInModel  {
      */
     public void readFileForPassenger(String fileName)
     {
+    	File f;
+    	Scanner input=null;
         try
         {
 
-            File f = new File(fileName);
+             f = new File(fileName);
 
             //To enable input
-            Scanner input = new Scanner(f);
+             input = new Scanner(f);
 
             while(input.hasNextLine())
             {
@@ -120,7 +141,13 @@ public class CheckInModel  {
             System.err.println("ERROR "+ e.getMessage());
             System.exit(1);
         }// end of catch
-
+        
+        finally
+        {
+        	
+        	input.close();
+        	
+        }
     }// end of readFile method
 
     /**takes current line and places into correct variables for passenger object
@@ -142,7 +169,13 @@ public class CheckInModel  {
         listOfPassengers.add(p);
 
     }
-
+    /**
+     * A method used to set passengers information
+     * it traverse the listOfPassengers to match a passenger
+     * it compares the provided BookingRef and lastname if there were the same as the passenger
+     * @param bookingRefCode
+     * @param lastName
+     */
     public void setCurrentPassengerWithBooking(String bookingRefCode, String lastName)
     {
         for(Passenger p: listOfPassengers)
@@ -150,11 +183,21 @@ public class CheckInModel  {
                 currentPassenger = p;
     }
 
+    /**
+     * a Method for returning the current Passenger to be processed
+     * @return Passenger Object
+     */
     public Passenger getCurrentPassenger() {
         return currentPassenger;
     }
 
-
+    /**
+     * Method used to CheckInPassenger based on his bookingRefCode and lastname 
+     * it checks whether or not a passenger exists using the condition currentPassenger !=null
+     * currentPassenger will contains the passenger object that has the bookingref and lastname to be checked
+     * @param bookingRef
+     * @param lastName
+     */
     public void checkInPassenger(String bookingRef , String lastName){
         setCurrentPassengerWithBooking(bookingRef, lastName);
 
@@ -163,12 +206,20 @@ public class CheckInModel  {
             currentPassenger.setCheckedIn(true);
         }
     }
-
+    /**
+     * a method used to set the Bag information for a passenger
+     * @param bagVolume
+     * @param bagWeight
+     */
     public void checkInBag(int bagVolume, float bagWeight ){
         currentPassenger.setBagVolume(bagVolume);
         currentPassenger.setBagWeight(bagWeight);
     }
-
+    
+    /**
+     * a method which traverse the PassengerList to check weather or not they have checkedIn or not
+     * @return a boolean passengerCheck to indicate the CheckIn situation 
+     */
     public boolean haveAllPassengersCheckedin(){
         boolean passengerCheck = true;
         for (Passenger p : listOfPassengers)
@@ -178,7 +229,13 @@ public class CheckInModel  {
         }
         return passengerCheck;
     }
-
+    
+    /**
+     * A method which traverse the PassengerList to check weather or not all passengers
+     * have checkedIn for a specific flight 
+     * @param flightCode
+     * @return boolean passengerCheck to indicate the CheckedIn 
+     */
     public boolean haveAllPassengersCheckedin (String flightCode){
         boolean passengerCheck = true;
         for (Passenger p : listOfPassengers)
@@ -189,6 +246,11 @@ public class CheckInModel  {
         return passengerCheck;
     }
 
+    /**
+     * a method which generate Passenger Information 
+     * It traverse the whole list and print information for each object 
+     * @return a String which contains the information needed to display 
+     */
     public String generatePassengerInfo()
     {
         String report= "Booking Code         Passenger name      Flight Code    CheckedIN \n";
@@ -204,7 +266,11 @@ public class CheckInModel  {
 
         return report;
     }
-
+    /**
+     * a method which generate Flight Information 
+     * It traverse the whole FlightList and print information for each object 
+     * @return a String which contains the information needed to display 
+     */
     public String generateFlightInfo()
     {
         String report = " Destination Airport     Flight Code  Carrier      Maximum number of Passenger      Maximum Baggage weight     Maximum Baggage volume \n";
@@ -224,7 +290,10 @@ public class CheckInModel  {
         return report;
     }
 
-
+    /**
+     * a method which generates information for both list PassengerList and FlightList
+     * @return a string containg all the requried information 
+     */
     public String generateReport()
     {
         String report = "";
@@ -295,7 +364,12 @@ public class CheckInModel  {
         }
         return report;
     }
-
+    /**
+     * a method which display information for passengers who have already CheckedIn
+     * it traverse the whole PassengerList, check weather if they have already been CheckedIn
+     * Process information 
+     * @return report which is a string contains all the requried information 
+     */
     public String generateListOfCheckedInPassenger()
     {
         String report = "FirstName   LastName  BookingRef \n";
@@ -312,6 +386,9 @@ public class CheckInModel  {
         return report;
 
     }
+     
+    
+
     
 
 }

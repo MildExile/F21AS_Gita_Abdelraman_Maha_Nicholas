@@ -1,14 +1,19 @@
 package F21AS_Gita_Abdelraman_Maha_Nicholas;
 
+/**
+ * A class that creates and process Passenger objects and assign information to it 
+ * @author Abood
+ *
+ */
 public class Passenger {
     private String bookingRefCode; //example "AA12345678"
     private String flightCode;
     private String firstName;
     private String lastName;
     private boolean checkedIn;
-    private int bagVolume = 0;
-    private float bagWeight = 0.0f;
-    private float excessBagCost = 0.0f;
+    private float bagVolume;
+    private float bagWeight;
+    private float excessBagCost;
     private float x;
     private float z;
     private float y;
@@ -22,9 +27,15 @@ public class Passenger {
         this.firstName = firstName;
         this.lastName = lastName;
         this.checkedIn = checkedIn;
+        bagVolume = 0;
+        bagWeight = 0.0f;
+        excessBagCost = 0.0f;
     }
 
-
+    /**
+     * a method to set the BagVolume 
+     * @param bagVolume
+     */
     public void setBagVolume(int bagVolume) {
         this.bagVolume = bagVolume;
     }
@@ -66,7 +77,7 @@ public class Passenger {
         return this.checkedIn;
     }
 
-    public int getBagVolume() {
+    public float getBagVolume() {
         return this.bagVolume;
     }
 
@@ -83,6 +94,7 @@ public class Passenger {
     	this.x = x;
     	this.y = y;
     	this.z = z;
+    	this.bagVolume = x * y * z;
     }
     
     public String getBagDimension()
@@ -100,11 +112,15 @@ public class Passenger {
             return true;
         return false;
     }
-
-    public void excessBagCalculation() {
+    
+    /**
+     * a method which calculate weather or not  the passenger have fees to pay 
+     */
+    public float getExcessBagCalculation() {
         if (isThereExcessBag()) {
-            this.excessBagCost = (this.getBagWeight() - excessBagLimit) * excessBagCostPerUnit;
+            this.excessBagCost = Math.abs((this.getBagWeight() - excessBagLimit)) * excessBagCostPerUnit;
         }
+        return excessBagCost;
     }
 
 }
